@@ -260,8 +260,10 @@ def generate_ptr_card(data, output_path):
 
     # Strip chamber prefix (REP./SEN.) for the NAME field
     display_name = re.sub(r'^(?:REP|SEN)\.?\s*', '', data["name"], flags=re.IGNORECASE).title()
-    for lbl, val in [("FILING ID: ", f"#{data['filing_id']}"),
-                     ("NAME: ", display_name)]:
+    info_fields = [("NAME: ", display_name)]
+    if data.get("filing_id"):
+        info_fields.insert(0, ("FILING ID: ", f"#{data['filing_id']}"))
+    for lbl, val in info_fields:
         draw.text((MARGIN, y_info), lbl, fill=BLACK, font=lf)
         lx = MARGIN + draw.textlength(lbl, font=lf)
         draw.text((lx, _bly(vf, lf, y_info)), val, fill=BLACK, font=vf)

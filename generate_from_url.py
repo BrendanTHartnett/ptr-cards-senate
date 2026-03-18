@@ -301,15 +301,11 @@ def senate_to_card_data(url: str, parsed: dict) -> dict:
     if not party:
         party = "Unknown"
 
-    # Extract UUID from URL as filing ID
-    uuid_match = re.search(r'/ptr/([a-f0-9-]+)', url)
-    filing_id = uuid_match.group(1)[:8] if uuid_match else ""
-
     # Look up state code
     state = _lookup_senator_state(raw_name)
 
     return {
-        "filing_id": filing_id,
+        "filing_id": "",
         "name": name,
         "status": "Senator",
         "district": state,
