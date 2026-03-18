@@ -1,0 +1,4 @@
+Pillow>=10.0
+numpy>=1.24
+playwright>=1.40
+beautifulsoup4>=4.12
