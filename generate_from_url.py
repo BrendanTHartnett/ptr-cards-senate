@@ -241,6 +241,12 @@ def fetch_senate_ptr(url: str) -> dict:
             tx_type_raw = cells[6]  # "Purchase", "Sale", "Exchange", etc.
             amount_raw = cells[7]
 
+            # Clean up asset name — Senate site concatenates bond details
+            # Strip Rate/Coupon, Maturity, and other bond metadata
+            asset_name = re.sub(r'Rate/Coupon:.*', '', asset_name).strip()
+            asset_name = re.sub(r'Matures?:.*', '', asset_name).strip()
+            asset_name = re.sub(r'Coupon:.*', '', asset_name).strip()
+
             # Format asset: include ticker if present
             if ticker and ticker != "--":
                 asset_display = f"{asset_name} ({ticker})"
